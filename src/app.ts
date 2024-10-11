@@ -4,6 +4,8 @@ import { config } from "dotenv";
 import { connectToDB, sequelize } from "./sequelize.config";
 import { userRouter } from "./routes/user";
 import { signinRouter } from './routes/auth/signin';
+import { errorHandler } from './middleware/error-handler';
+import { NotFoundError } from './errors/not-fround-error';
 config({path: "./.env"})
 
 
@@ -14,13 +16,10 @@ app.use(express.urlencoded({ extended: false }))
 app.use(signinRouter)
 app.use(userRouter)
 
-app.use((err: Error, req: Request,res: Response, next: NextFunction ) => {
-  console.log(err)
-  // console.log(sequelize.getDatabaseName())
-  res.status(400).send({
-    message: "An error occurred",
-    error: err?.message || err
-  })
+app.all('*', () => {
+  throw new NotFoundError()
 })
+
+app.use(errorHandler)
 
 export { app }
