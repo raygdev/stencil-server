@@ -22,7 +22,6 @@ export const sequelize = new Sequelize({
 
 export const connectToDB = async (app: Express) => {
     try {
-        await sequelize.sync({ force: true })
         await sequelize.authenticate()
         console.log('successfully connected to db')
     } catch (e) {
