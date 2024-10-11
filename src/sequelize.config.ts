@@ -17,7 +17,7 @@ export const sequelize = new Sequelize({
     password: process.env.PASSWORD,
     dialect: 'postgres',
     database: process.env.NODE_ENV === 'test' ? DB_NAME.test : DB_NAME.develop,
-    logging: process.env.NODE_ENV === 'test' ? false : true
+    logging: false
 })
 
 export const connectToDB = async (app: Express) => {
