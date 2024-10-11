@@ -20,5 +20,5 @@ export const create = async (req: Request, res: Response) => {
         password: bcrypt.hashSync(password,10)
     })
     await user.save()
-    res.json(user.toJSON())
+    res.status(201).json(user.toJSON())
 }
