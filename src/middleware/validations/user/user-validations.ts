@@ -8,6 +8,7 @@ export const email = body('email')
   .trim()
   .isString()
   .withMessage('email must be a string')
+  .trim()
 
 export const password = body('password')
   .notEmpty()
@@ -25,6 +26,7 @@ export const password = body('password')
      character, and one number
     `
   )
+  .trim()
 
 
 export const firstName = body('firstName')
@@ -34,6 +36,7 @@ export const firstName = body('firstName')
   .withMessage('name must be between 2 and 32 characters')
   .isString()
   .withMessage('name must be a string')
+  .trim()
 
 export const lastName = body('lastName')
   .notEmpty()
@@ -42,5 +45,6 @@ export const lastName = body('lastName')
   .withMessage('last name must be between 2 and 32 characters')
   .isString()
   .withMessage('last name must be a string')
+  .trim()
 
   
