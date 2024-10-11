@@ -1,5 +1,5 @@
 import { User } from "../../models/user-model";
-import { Request, Response, Router } from "express";
+import { Request, Response } from "express";
 import bcrypt from 'bcrypt'
 
 interface ICreateUserRequest {
