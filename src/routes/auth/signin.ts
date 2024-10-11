@@ -3,6 +3,7 @@ import { Router, Request, Response } from 'express'
 import { User } from '../../models/user-model'
 import bcrypt from 'bcrypt'
 import { NotFoundError } from '../../errors'
+import { email, password, isValidRequest } from '../../middleware'
 
 interface ICredentials {
     email: string
@@ -11,7 +12,13 @@ interface ICredentials {
 
 const router = Router()
 
-router.post('/api/signin', async (req: Request, res: Response) => {
+router.post('/api/signin',
+    [
+     email,
+     password
+    ],
+    isValidRequest,
+    async (req: Request, res: Response) => {
     const { email, password } = req.body as ICredentials
 
 
