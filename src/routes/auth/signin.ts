@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import { Router, Request, Response } from 'express'
 import { User } from '../../models/user-model'
 import bcrypt from 'bcrypt'
+import { NotFoundError } from '../../errors'
 
 interface ICredentials {
     email: string
@@ -13,11 +14,13 @@ const router = Router()
 router.post('/api/signin', async (req: Request, res: Response) => {
     const { email, password } = req.body as ICredentials
 
-    if(!email || !password) throw new Error('You must provide an email and password')
 
-    const user = (await User.findOne({ where: { email }}))?.toJSON()
+    const user = (await User.findOne({
+         where: { email },
+         attributes: { exclude: ['password']}
+        }))?.toJSON()
 
-    if(!user) throw new Error('Cannot find that user/password combination')
+    if(!user) throw new NotFoundError()
 
     const passwordMatch = bcrypt.compareSync(password, user.password)
     if(!passwordMatch) throw new Error('Cannot find that user/password combination')
