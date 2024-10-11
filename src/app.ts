@@ -1,10 +1,9 @@
 import 'express-async-errors'
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import { config } from "dotenv";
-import { connectToDB, sequelize } from "./sequelize.config";
 import { userRouter } from "./routes/user";
 import { signinRouter } from './routes/auth/signin';
-import { errorHandler } from './middleware/error-handler';
+import { errorHandler } from './middleware';
 import { NotFoundError } from './errors/not-fround-error';
 config({path: "./.env"})
 
