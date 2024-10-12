@@ -45,7 +45,7 @@ describe('GET /api/users/get', () => {
             password: 'Test123!'
         })
 
-        const { id } = user as unknown as { id: number}
+        const { id } = user 
 
         const token = jwt.sign({ id }, process.env.TOKEN_SECRET!)
 
