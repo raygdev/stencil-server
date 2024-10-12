@@ -1,10 +1,10 @@
 import { body } from "express-validator";
 
 export const email = body('email')
-  .isEmail()
-  .withMessage('email must be valid')
   .notEmpty()
   .withMessage('email must be provided')
+  .isEmail()
+  .withMessage('email must be valid')
   .trim()
   .isString()
   .withMessage('email must be a string')
