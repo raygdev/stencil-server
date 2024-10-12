@@ -1,7 +1,6 @@
 import request from 'supertest'
 import { app } from '../../../app'
 import { User } from '../../../models/user-model'
-import { ICreateUserRequest } from '../../user/create'
 import jwt from 'jsonwebtoken'
 
 describe('POST /api/signin', () => {
@@ -10,16 +9,13 @@ describe('POST /api/signin', () => {
         password: 'Test123!',
         email: 'test@test.com'
     }
-    let user: ICreateUserRequest;
 
     beforeEach(async () => {
         try {
             await User.sync()
-            user = await createUser({
-                ...userCredentials,
-                firstName: 'Test',
-                lastName: 'User'
-             })
+            // global to generate a test user
+            // tests are asserted with this user
+            await createUser()
         } catch (error) {
         }
     })
@@ -50,7 +46,7 @@ describe('POST /api/signin', () => {
 
         expect(res.body.errors[0].message).toEqual('email must be provided')
     })
-    it('fails on validation with invalid email is sent', async () => {
+    it('fails on validation when invalid email is sent', async () => {
         const res = await request(app)
         .post('/api/signin')
         .send({
@@ -61,7 +57,7 @@ describe('POST /api/signin', () => {
 
         expect(res.body.errors[0].message).toEqual('email must be valid') 
     })
-    it('fails on validation when invalid password is passed', async () => {
+    it('fails on validation when invalid password is sent', async () => {
         const res = await request(app)
         .post('/api/signin')
         .send({
@@ -72,7 +68,7 @@ describe('POST /api/signin', () => {
 
         expect(res.body.errors[0].message).toEqual('password must be a minimum of 8 characters')
     })
-    it('fails when user isn\'t found', async () => {
+    it('fails when the user isn\'t found', async () => {
         const res = await request(app)
         .post('/api/signin')
         .send({
@@ -94,7 +90,7 @@ describe('POST /api/signin', () => {
 
         expect(res.body.errors[0].message).toEqual('Not Found')
     })
-    it('successfully responds with user information and token', async () => {
+    it('successfully responds with the user information and token', async () => {
         const res = await request(app)
           .post('/api/signin')
           .send(userCredentials)
