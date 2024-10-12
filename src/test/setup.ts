@@ -2,12 +2,14 @@ import bcrypt from 'bcrypt'
 import { User } from "../models/user-model";
 import { ICreateUserRequest } from "../routes/user/create";
 import { sequelize } from "../sequelize.config";
+import jwt from 'jsonwebtoken'
 
 interface IUser extends ICreateUserRequest {
     id: number
 }
 declare global {
-    var createUser: (user: ICreateUserRequest) => Promise<IUser>
+    var createUser: () => Promise<IUser>
+    var generateToken: (id: number) => string
 }
 
 global.createUser = async (user) => {
