@@ -2,7 +2,7 @@ import { User } from "../../models/user-model";
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt'
 
-interface ICreateUserRequest {
+export interface ICreateUserRequest {
     firstName: string,
     lastName: string,
     password: string,
