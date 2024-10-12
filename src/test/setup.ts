@@ -13,13 +13,23 @@ declare global {
     var generateToken: (id: number) => string
 }
 
-global.createUser = async (user) => {
+global.generateToken = (id) => {
+    return jwt.sign({ id}, process.env.TOKEN_SECRET!)
+}
+
+global.createUser = async () => {
+    await User.sync()
     const newUser = await User.create({
-        ...user,
-        password: bcrypt.hashSync(user.password, 10)
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test@test.com',
+        password: bcrypt.hashSync('Test123!', 10)
     })
     await newUser.save()
-    return newUser.toJSON()
+    return {
+        ...newUser.toJSON(),
+        token: generateToken(newUser.toJSON().id)
+    }
 }
 
 
