@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../sequelize.config";
 
-export const User = sequelize.define("User", {
+export const User = sequelize.define("user", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -24,7 +24,9 @@ export const User = sequelize.define("User", {
         unique: true,
         allowNull: false
     },
+
+    deletedAt: {
+        type: DataTypes.DATE
+    }
     
 }, { paranoid: true })
-
-User.sync()
