@@ -1,13 +1,110 @@
 import request from 'supertest'
 import { app } from '../../../app'
 import { User } from '../../../models/user-model'
+import { ICreateUserRequest } from '../../user/create'
+import jwt from 'jsonwebtoken'
 
 describe('POST /api/signin', () => {
-    it.todo('fails validation when no password is sent')
-    it.todo('fails validation when no email is sent')
-    it.todo('fails on validation with invalid email is sent')
-    it.todo('fails on validation when invalid password is passed')
-    it.todo('fails when user isn\'t found')
-    it.todo('fails when passwords do not match')
-    it.todo('successfully responds with user information and token')
+
+    const userCredentials = {
+        password: 'Test123!',
+        email: 'test@test.com'
+    }
+    let user: ICreateUserRequest;
+
+    beforeEach(async () => {
+        try {
+            await User.sync()
+            user = await createUser({
+                ...userCredentials,
+                firstName: 'Test',
+                lastName: 'User'
+             })
+        } catch (error) {
+        }
+    })
+
+    afterEach(async () => {
+        await User.drop()
+    })
+
+    it('fails validation when no password is sent', async () => {
+      const res = await request(app)
+        .post('/api/signin')
+        .send({
+            ...userCredentials,
+            password: ''
+        })
+        .expect(400)
+
+        expect(res.body.errors[0].message).toEqual('password must be provided')
+    })
+    it('fails validation when no email is sent', async () => {
+        const res = await request(app)
+        .post('/api/signin')
+        .send({
+            ...userCredentials,
+            email: ''
+        })
+        .expect(400)
+
+        expect(res.body.errors[0].message).toEqual('email must be provided')
+    })
+    it('fails on validation with invalid email is sent', async () => {
+        const res = await request(app)
+        .post('/api/signin')
+        .send({
+            ...userCredentials,
+            email: 'test.com'
+        })
+        .expect(400)
+
+        expect(res.body.errors[0].message).toEqual('email must be valid') 
+    })
+    it('fails on validation when invalid password is passed', async () => {
+        const res = await request(app)
+        .post('/api/signin')
+        .send({
+            ...userCredentials,
+            password: 'te12'
+        })
+        .expect(400)
+
+        expect(res.body.errors[0].message).toEqual('password must be a minimum of 8 characters')
+    })
+    it('fails when user isn\'t found', async () => {
+        const res = await request(app)
+        .post('/api/signin')
+        .send({
+            ...userCredentials,
+            email: 'test@123.com'
+        })
+        .expect(404)
+
+        expect(res.body.errors[0].message).toEqual('Not Found')
+    })
+    it('fails when passwords do not match', async () => {
+        const res = await request(app)
+        .post('/api/signin')
+        .send({
+            ...userCredentials,
+            password: 'Test1234!'
+        })
+        .expect(404)
+
+        expect(res.body.errors[0].message).toEqual('Not Found')
+    })
+    it('successfully responds with user information and token', async () => {
+        const res = await request(app)
+          .post('/api/signin')
+          .send(userCredentials)
+          .expect(200)
+
+          const decoded = jwt.verify(res.body.token, process.env.TOKEN_SECRET!) as { id: string }
+
+          expect(decoded.id).toEqual(res.body.id)
+          expect(res.body.password).not.toBeTruthy()
+          expect(res.body.firstName).toEqual('Test')
+          expect(res.body.token).toBeTruthy()
+    })
 })
