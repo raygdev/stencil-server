@@ -3,8 +3,11 @@ import { User } from "../models/user-model";
 import { ICreateUserRequest } from "../routes/user/create";
 import { sequelize } from "../sequelize.config";
 
+interface IUser extends ICreateUserRequest {
+    id: number
+}
 declare global {
-    var createUser: (user: ICreateUserRequest) => Promise<ICreateUserRequest>
+    var createUser: (user: ICreateUserRequest) => Promise<IUser>
 }
 
 global.createUser = async (user) => {
