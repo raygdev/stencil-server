@@ -1,8 +1,6 @@
 import request from 'supertest'
 import { app } from '../../../app'
 import { User } from '../../../models/user-model'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 
 describe('POST /api/users/delete', () => {
 
