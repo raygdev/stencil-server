@@ -24,13 +24,13 @@ router.post('/api/signin',
 
     const user = (await User.findOne({
          where: { email },
-         attributes: { exclude: ['password']}
         }))?.toJSON()
 
     if(!user) throw new NotFoundError()
-
     const passwordMatch = bcrypt.compareSync(password, user.password)
-    if(!passwordMatch) throw new Error('Cannot find that user/password combination')
+    if(!passwordMatch) throw new NotFoundError()
+
+    delete user.password
 
     res.json({
         ...user,
