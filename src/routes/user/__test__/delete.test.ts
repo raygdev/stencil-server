@@ -33,14 +33,9 @@ describe('POST /api/users/delete', () => {
         .expect(401)
    })
    it('should delete the user', async () => {
-    const user = await createUser({
-        firstName: 'Test',
-        lastName: 'User',
-        email: 'test@test.com',
-        password: bcrypt.hashSync('Test123!', 10)
-    })
+    const user = await createUser()
 
-    const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET!)
+    const { token } = user
 
     const res = await request(app)
       .delete('/api/users/delete')
@@ -49,15 +44,10 @@ describe('POST /api/users/delete', () => {
       .expect(204)
    })
    it('should soft delete the user', async () => {
-    const user = await createUser({
-        firstName: "Test",
-        lastName: "User",
-        email: 'test@test.com',
-        password: bcrypt.hashSync('Test123!', 10)
-    })
+    const user = await createUser()
 
-    const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET!)
-
+    // const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET!)
+    const { token, id, firstName, lastName } = user
     const res = await request(app)
       .delete('/api/users/delete')
       .auth(token, { type: 'bearer'})
@@ -65,13 +55,13 @@ describe('POST /api/users/delete', () => {
       .expect(204)
 
     const deleteUser = (await User.findOne({
-        where: { id: user.id },
+        where: { id },
         paranoid: false
     }))?.toJSON()
 
     expect(deleteUser).toBeTruthy()
-    expect(deleteUser.id).toEqual(user.id)
-    expect(deleteUser.firstName).toEqual(user.firstName)
+    expect(deleteUser.id).toEqual(id)
+    expect(deleteUser.firstName).toEqual(firstName)
       
    })
 })
