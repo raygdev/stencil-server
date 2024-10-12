@@ -20,7 +20,9 @@ global.createUser = async (user) => {
 }
 
 
+
 beforeAll(async () => {
+    process.env.TOKEN_SECRET = "123"
     try {
         await sequelize.sync()
     } catch(e) {
