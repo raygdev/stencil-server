@@ -1,6 +1,5 @@
 import request from 'supertest'
 import { User } from '../../../models/user-model'
-import jwt from 'jsonwebtoken'
 import { app } from '../../../app'
 
 
@@ -38,16 +37,9 @@ describe('GET /api/users/get', () => {
           expect(res.body.firstName).not.toBeTruthy()
     })
     it('successfully responds with the requesting user\'s information', async () => {
-        const user = await createUser({
-            firstName: 'Test',
-            lastName: 'User',
-            email: 'test@test.com',
-            password: 'Test123!'
-        })
+        const user = await createUser()
 
-        const { id } = user 
-
-        const token = jwt.sign({ id }, process.env.TOKEN_SECRET!)
+        const { id, token, firstName } = user
 
         const res = await request(app)
           .get('/api/users/get')
@@ -56,6 +48,6 @@ describe('GET /api/users/get', () => {
           .expect(200)
 
           expect(res.body.id).toEqual(id)
-          expect(res.body.firstName).toEqual(user.firstName)
+          expect(res.body.firstName).toEqual(firstName)
     })
 })
