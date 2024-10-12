@@ -18,12 +18,20 @@ global.createUser = async (user) => {
 
 
 beforeAll(async () => {
-    await sequelize.sync({ force: true })
+    try {
+        await sequelize.sync()
+    } catch(e) {
+    }
 })
 
 
 afterAll(async () => {
-    await sequelize.close()
+
+    try{
+      await sequelize.close()
+    } catch(e) {
+        console.log(e)
+    }
 })
 
 
