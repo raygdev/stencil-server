@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watch --detectOpenHandles --no-cache",
     "dev": "nodemon --watch 'src/**' --ext 'ts' --ignore 'src/**/*.test.ts' --exec 'ts-node src/index.ts'",
     "start": "ts-node src/app.ts",
     "build": "rimraf build && tsc"
