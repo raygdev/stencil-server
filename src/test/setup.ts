@@ -4,8 +4,9 @@ import { ICreateUserRequest } from "../routes/user/create";
 import { sequelize } from "../sequelize.config";
 import jwt from 'jsonwebtoken'
 
-interface IUser extends ICreateUserRequest {
-    id: number
+export interface IUser extends ICreateUserRequest {
+    id: number,
+    token: string
 }
 declare global {
     var createUser: () => Promise<IUser>
