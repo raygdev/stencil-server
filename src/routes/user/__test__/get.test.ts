@@ -54,5 +54,8 @@ describe('GET /api/users/get', () => {
           .auth(token, { type: 'bearer' })
           .send()
           .expect(200)
+
+          expect(res.body.id).toEqual(id)
+          expect(res.body.firstName).toEqual(user.firstName)
     })
 })
