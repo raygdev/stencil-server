@@ -24,9 +24,7 @@ describe('GET /api/users/get', () => {
           expect(res.body.firstName).not.toBeTruthy()
     })
     it('successfully responds with the requesting user\'s information', async () => {
-        const user = await createUser()
-
-        const { id, token, firstName } = user
+        const { id, token, firstName } = await createUser()
 
         const res = await request(app)
           .get('/api/users/get')
