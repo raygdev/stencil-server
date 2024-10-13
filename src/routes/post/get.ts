@@ -4,7 +4,6 @@ import { NotFoundError } from "../../errors";
 
 export const get = async (req: Request, res: Response) => {
   const posts = await Post.findAll({ where:{ userId: req.user!.id} })
-  console.log("[POSTS]",posts)
 
   if(!posts) throw new NotFoundError()
 
