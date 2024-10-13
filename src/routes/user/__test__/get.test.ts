@@ -1,22 +1,9 @@
 import request from 'supertest'
-import { User } from '../../../models/user-model'
 import { app } from '../../../app'
 
 
 describe('GET /api/users/get', () => {
-    beforeEach(async () => {
-        try {
-          await User.sync()
-        } catch (error) {  
-        }
-    })
 
-    afterEach(async () => {
-        try {
-          await User.drop()
-        } catch (e) {  
-        }
-    })
     it('fails when no authorization header is present', async () => {
         const res = await request(app)
           .get('/api/users/get')
