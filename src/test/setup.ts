@@ -3,14 +3,40 @@ import { User } from "../models/user-model";
 import { ICreateUserRequest } from "../routes/user/create";
 import { sequelize } from "../sequelize.config";
 import jwt from 'jsonwebtoken'
+import { Post } from '../models/posts-model';
 
 export interface IUser extends ICreateUserRequest {
     id: number,
     token: string
 }
+
+interface ICreatePost {
+    note: string,
+    userId: number
+}
+
+export interface IPost extends ICreatePost {
+    id: number,
+    createdAt: Date,
+    updatedAt: Date,
+    deletedAt: null | Date
+}
+
 declare global {
     var createUser: () => Promise<IUser>
     var generateToken: (id: number) => string
+    var createPost:  (id: number) => Promise<IPost>
+}
+
+global.createPost = async (id) => {
+    await Post.sync({ force: true })
+    const newPost = await Post.create({
+        note: 'Some new note',
+        userId: id
+    })
+    await newPost.save()
+
+    return newPost.toJSON() as IPost
 }
 
 global.generateToken = (id) => {
