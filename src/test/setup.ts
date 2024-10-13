@@ -46,6 +46,7 @@ beforeAll(async () => {
 afterAll(async () => {
 
     try{
+      await sequelize.drop()
       await sequelize.close()
     } catch(e) {
         console.log(e)
