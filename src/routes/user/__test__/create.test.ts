@@ -5,15 +5,6 @@ import { User } from "../../../models/user-model";
 
 describe('POST /api/users/create', () => {
 
-   beforeEach((done) => {
-    User.sync({ force: true })
-     .then(() => done())
-     .catch(e => {
-      console.log(e)
-      done()
-     })
-   })
-
    const userInfo = {
     firstName: 'Some',
     lastName: 'Guy',
@@ -79,7 +70,6 @@ describe('POST /api/users/create', () => {
       .post('/api/users/create')
       .send(userInfo)
       .expect(201)
-      // console.log(req.body.errors)
 
     expect(req.body.firstName).toEqual(userInfo.firstName)
     expect(req.body.lastName).toEqual(userInfo.lastName)
