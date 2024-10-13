@@ -29,7 +29,6 @@ declare global {
 }
 
 global.createPost = async (id) => {
-    await Post.sync({ force: true })
     const newPost = await Post.create({
         note: 'Some new note',
         userId: id
