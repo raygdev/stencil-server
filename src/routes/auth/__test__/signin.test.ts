@@ -12,16 +12,11 @@ describe('POST /api/signin', () => {
 
     beforeEach(async () => {
         try {
-            await User.sync()
-            // global to generate a test user
-            // tests are asserted with this user
-            await createUser()
+          // global to generate a test user
+          // these tests are asserted with this user
+          await createUser()
         } catch (error) {
         }
-    })
-
-    afterEach(async () => {
-        await User.drop()
     })
 
     it('fails validation when no password is sent', async () => {
