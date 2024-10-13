@@ -18,7 +18,7 @@ global.generateToken = (id) => {
 }
 
 global.createUser = async () => {
-    await User.sync()
+    await User.sync({ force: true })
     const newUser = await User.create({
         firstName: 'Test',
         lastName: 'User',
