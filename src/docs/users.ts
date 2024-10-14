@@ -25,8 +25,6 @@
  *     tags:
  *       - Users
  *     description: "requires authentication via JWT"
- *     parameters:
- *       - $ref: "#/components/parameters/AuthHeaderParameters"
  *     security:
  *       - BearerAuth: []
  *     responses:
@@ -50,8 +48,6 @@
  *     tags:
  *       - Users
  *     description: "requires authentication via JWT. Performs a soft delete for the user"
- *     parameters:
- *       - $ref: "#/components/parameters/AuthHeaderParameters"
  *     security:
  *       -BearerAuth: []
  *     responses:

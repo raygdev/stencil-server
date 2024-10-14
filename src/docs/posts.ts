@@ -6,8 +6,8 @@
  *     tags:
  *       - Posts
  *     description: "Requires authentication via JWT"
- *     parameters:
- *       - $ref: "#/components/parameters/AuthHeaderParameters"
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       $ref: "#/components/requestBodies/PostCreateBody"
  *     responses:
@@ -30,7 +30,6 @@
  *       - Posts
  *     description: "Requires authentication via JWT"
  *     parameters:
- *       - $ref: "#/components/parameters/AuthHeaderParameters"
  *       - $ref: "#/components/parameters/PostIdParam"
  *     security:
  *       - BearerAuth: []
@@ -51,8 +50,6 @@
  *     tags:
  *       - Posts
  *     description: "requires authentication via JWT"
- *     parameters:
- *       - $ref: "#/components/parameters/AuthHeaderParameters"
  *     security:
  *       - BearerAuth: []
  *     responses:
@@ -74,7 +71,6 @@
  *       - Posts
  *     description: "requires authentication via JWT. Performs a soft delete for the posts"
  *     parameters:
- *       - $ref: "#/components/parameters/AuthHeaderParameters"
  *       - $ref: "#/components/parameters/PostIdParam"
  *     security:
  *       - BearerAuth: []
