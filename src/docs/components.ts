@@ -7,6 +7,21 @@
  *       schema: bearer
  *       bearerFormat: JWT
  *   schemas:
+ *     SigninBody:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email: 
+ *           type: string
+ *           description: "The user's email"
+ *           example: "test@test.com"
+ *         password:
+ *           type: string
+ *           description: "The user's password"
+ *           example: "Test123!"
+ *       
  *     Users:
  *       type: object
  *       description: "returned user object on successful creation"
@@ -115,5 +130,6 @@
  *           description: "the field that failed validation"
  *       example:
  *         - message: "a note must be provided"
- *           field: "note"
+ *           field: "note"   
+ *   
  */

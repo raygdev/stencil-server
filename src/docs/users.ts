@@ -7,46 +7,12 @@
  *       - Users
  *     description: Creates a new user
  *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - firstName
- *               - lastName
- *               - email
- *               - password
- *             properties:
- *               firstName:
- *                 type: string
- *                 description: First name of the user
- *               lastName:
- *                 type: string
- *                 description: Last name of the user
- *               email:
- *                 type: string
- *                 description: The user's valid email address
- *               password:
- *                 type: string
- *                 description: The password for the user's account
+ *       $ref: "#/components/requestBodies/UserCreateRequestBody"
  *     responses:
  *       201:
- *         description: Successful response with the new user's details
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Users'
+ *         $ref: "#/responses/UserContentCreated"
  *       400:
- *         description: A failed validation or unknown error response
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               description: "Validation errors related to malformed or missing fields"
- *               properties:
- *                 errors:
- *                   $ref: "#/components/schemas/ValidationErrors"
+ *         $ref: "#/responses/UserValidationBadRequest"
  *                 
  *                
  */
@@ -60,12 +26,7 @@
  *       - Users
  *     description: "requires authentication via JWT"
  *     parameters:
- *       - in: header
- *         name: Authorization
- *         required: true
- *         schema:
- *           type: string
- *         description: Bearer token for authorization
+ *       - $ref: "#/components/parameters/AuthHeaderParameters"
  *     security:
  *       - BearerAuth: []
  *     responses:
@@ -75,21 +36,9 @@
  *             schema:
  *               $ref: "#components/schemas/Users"
  *       401:
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 errors:
- *                   $ref: "#components/schemas/NotAuthorizedError"
+ *         $ref: "#/responses/NotAuthorizedResponse"
  *       404:
- *         content:
- *           application/json:
- *             schema:
- *              type: object
- *              properties:
- *                errors:
- *                  $ref: "#components/schemas/NotFoundError"
+ *         $ref: "#/responses/NotFoundResponse"
  *     
  */
 
@@ -102,35 +51,15 @@
  *       - Users
  *     description: "requires authentication via JWT. Performs a soft delete for the user"
  *     parameters:
- *       - in: header
- *         name: Authorization
- *         required: true
- *         schema:
- *           type: string
- *         description: Bearer token for authorization
+ *       - $ref: "#/components/parameters/AuthHeaderParameters"
  *     security:
  *       -BearerAuth: []
  *     responses:
  *       204:
- *        description:
- *          No content is sent
- *        content:
- * 
+ *        description: "No Content"
  *       401:
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 errors:
- *                   $ref: "#components/schemas/NotAuthorizedError"
+ *         $ref: "#/responses/NotAuthorizedResponse"
  *       404:
- *         content:
- *           application/json:
- *             schema:
- *              type: object
- *              properties:
- *                errors:
- *                  $ref: "#components/schemas/NotFoundError"
+ *         $ref: "#/responses/NotFoundResponse"
  *     
  */
