@@ -11,59 +11,11 @@ export interface ICreateUserRequest {
 
 /**
  * @swagger
- * components:
- *   schemas:
- *     Users:
- *       type: object
- *       description: "returned user object on successful creation"
- *       properties:
- *         id:
- *           type: number
- *           example: 1
- *         firstName:
- *           type: string
- *           example: "John"
- *         lastName:
- *           type: string
- *           example: "Smith"
- *         email:
- *           type: string
- *           example: john.smith@yahoo.com
- *         createdAt:
- *           type: Date
- *           example: "2024-10-12T17:57:39.217Z"
- *         updatedAt:
- *           type: Date
- *           example: "2024-10-12T17:57:39.217Z"
- *         deletedAt:
- *           type: Date || null
- *           example: null
- *     ValidationErrors:
- *       type: object
- *       description: "an array of failed validations for missing or malformed fields"
- *       properties:
- *         message:
- *          type: string
- *          description: "reason why the field failed validation"
- *         field:
- *           type: string
- *           description: "the field that failed validation"
- *       example:
- *         - message: "email must be provided"
- *           field: "email"
- *         - message: "first name must be provided"
- *           field: "firstName"
- *         - message: "last name must be provided"
- *           field: "lastName"
- *         - message: "password must be provided"
- *           field: "password"
- */
-
-/**
- * @swagger
  * /api/users/create:
  *   post:
  *     summary: Create a user
+ *     tags:
+ *       - Users
  *     description: Creates a new user
  *     requestBody:
  *       required: true
