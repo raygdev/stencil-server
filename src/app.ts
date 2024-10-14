@@ -18,7 +18,7 @@ const swaggerOptions = {
       title: 'Stencil Server API Documentation',
       version: '1.0.0',
       description: "Documentation for the Stencil API. Most routes require authentication. When using the 'signin' " +
-      "route example, use the token recieved. Click on the authorize button in the bottom right of this " +
+      "route example, use the token received. Click on the authorize button in the bottom right of this " +
       "text and paste the token then click authorize. Routes that will require the Authorize header will have your token " +
       "automatically included."
     },
