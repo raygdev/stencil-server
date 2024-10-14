@@ -32,4 +32,4 @@ This will bundle everything in the `src` directory and output to a directory cal
 
 
 ## Endpoints
-To get a list of endpoints and expected responses visit `http://localhost:8080/docs` when the server is running
+This server uses swagger ui to document the api. You can find the docs when the server is started by visiting `http://localhost:8080/docs`

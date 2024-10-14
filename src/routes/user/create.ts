@@ -9,60 +9,6 @@ export interface ICreateUserRequest {
     email: string
 }
 
-/**
- * @swagger
- * /api/users/create:
- *   post:
- *     summary: Create a user
- *     tags:
- *       - Users
- *     description: Creates a new user
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - firstName
- *               - lastName
- *               - email
- *               - password
- *             properties:
- *               firstName:
- *                 type: string
- *                 description: First name of the user
- *               lastName:
- *                 type: string
- *                 description: Last name of the user
- *               email:
- *                 type: string
- *                 description: The user's valid email address
- *               password:
- *                 type: string
- *                 description: The password for the user's account
- *     responses:
- *       201:
- *         description: Successful response with the new user's details
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Users'
- *       400:
- *         description: A failed validation or unknown error response
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               description: "Validation errors related to malformed or missing fields"
- *               properties:
- *                 errors:
- *                   $ref: "#/components/schemas/ValidationErrors"
- *                 
- *                
- */
-
-
 export const create = async (req: Request, res: Response) => {
     const { firstName, lastName, email, password } = req.body as ICreateUserRequest
 
